@@ -1,0 +1,8 @@
+# Ignorar archivos de configuración local con credenciales
+.env
+config_local.json
+
+# Ignorar backups automáticos de pgAdmin o copias de seguridad
+*.backup
+*.dump
+*.sql.bak
