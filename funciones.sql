@@ -13,11 +13,11 @@ BEGIN
 		SELECT 1, posicion, array_agg(g.parte_izq)
         FROM generate_series(1, longitud_string) AS posicion
         JOIN expresion_json ej ON true
-        -- CORRECCIÓN: Aseguramos limpieza estricta de caracteres en la comparación inicial
+       
         JOIN GLC_en_FNC g ON trim(g.parte_der1) = trim(substring(ej.string FROM posicion FOR 1)) AND g.tipo_produccion = 1
         GROUP BY posicion;
 	ELSE
-		-- CASO RECURSIVO
+	-- CASO RECURSION
         INSERT INTO matriz_cyk (i, j, x)
         SELECT fila, j_pos, array_agg(DISTINCT g.parte_izq)
         FROM generate_series(1, longitud_string - fila + 1) AS j_pos
@@ -52,7 +52,6 @@ BEGIN
         PERFORM setear_matriz(fila);
     END LOOP;
 
-    -- CORRECCIÓN: Modificamos la verificación final para evaluar la S sin problemas de mapeo en arrays nativos
     SELECT EXISTS (
         SELECT 1 
         FROM (

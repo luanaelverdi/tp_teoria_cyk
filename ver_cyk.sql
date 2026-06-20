@@ -1,5 +1,5 @@
 -- Mostrar la gramatica cargada
-CREATE OR REPLACE FUNCTION fn_mostrar_glc()
+CREATE OR REPLACE FUNCTION mostrar_glc()
 RETURNS TABLE(regla TEXT)
 LANGUAGE plpgsql AS
 $$
@@ -20,8 +20,7 @@ BEGIN
 END;
 $$;
 
--- Mostrar la matriz CYK en forma triangular
-CREATE OR REPLACE FUNCTION fn_mostrar_matriz_cyk()
+CREATE OR REPLACE FUNCTION mostrar_triangulo_cyk()
 RETURNS TABLE(fila TEXT)
 LANGUAGE plpgsql AS
 $$
@@ -32,33 +31,30 @@ DECLARE
     vars TEXT;
     fila_texto TEXT;
 BEGIN
-    -- Obtenemos el tamaño máximo de la cadena evaluada (Nivel i más alto)
+    --devuelve el i maximo de la cadena
     SELECT MAX(mc.i) INTO n FROM matriz_cyk mc;
     IF n IS NULL THEN RETURN; END IF;
 
-    -- Recorremos en REVERSA: Desde la punta de la pirámide (n) hasta la base (1)
+    --va desde la punta de la piramide para abajo <--
     FOR i_idx IN REVERSE n..1 LOOP
         fila_texto := '';
 
-        -- Para una longitud 'i', existen 'n - i + 1' celdas posibles
         FOR j_idx IN 1..(n - i_idx + 1) LOOP
-
-            -- Buscamos qué variables hay en esa celda
+        
             SELECT array_to_string(mc.x, ', ') 
             INTO vars
             FROM matriz_cyk mc
             WHERE mc.i = i_idx AND mc.j = j_idx;
 
-            -- Salvavidas anti-NULL: Si la celda no existe en la BD, mostramos un símbolo vacío
+	    --si no existe la celda mucha el vacio
             IF vars IS NULL THEN
                 vars := '∅'; 
             END IF;
 
-            -- Concatenamos la celda a la fila actual
             fila_texto := fila_texto || '[' || vars || ']   ';
         END LOOP;
 
-        -- Devolvemos la fila armada
+        --devuelve la fila armada
         fila := 'i=' ||  i_idx || ' | ' || fila_texto;
         RETURN NEXT;
     END LOOP;
