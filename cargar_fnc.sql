@@ -19,7 +19,7 @@ CREATE TABLE matriz_cyk(
 );
 
 CREATE TABLE expresion_json(
---	id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	string TEXT
 );
 
