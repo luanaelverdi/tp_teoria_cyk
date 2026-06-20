@@ -1,8 +1,9 @@
 DELETE FROM GLC_en_FNC;
 
---PARA SUMA
---S --> SS 
+--PARA SUMA 
+--S --> SS
 --S --> S VALSUMA
+--S --> 0...9
 --SUMA --> +
 --VALSUMA --> VALSUMA S
 
