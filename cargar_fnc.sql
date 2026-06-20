@@ -23,23 +23,23 @@ CREATE TABLE expresion_json(
 );
 
 -- Raíz del JSON
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'S1', '{', '', 1);
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'S2', '}', '', 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'S1', '{', NULL, 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'S2', '}', NULL, 1);
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'S3', 'CONTENIDO', 'S2', 2);
 INSERT INTO GLC_en_FNC VALUES (TRUE, 'S', 'S1', 'S3', 2);
 INSERT INTO GLC_en_FNC VALUES (TRUE, 'S', 'S1', 'S2', 2); -- Permite {}
 
 -- Terminales Estructurales
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'COMILLA', '"', '', 1);
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'DOS_PUNTOS', ':', '', 1);
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'COMA', ',', '', 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'COMILLA', '"', NULL, 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'DOS_PUNTOS', ':', NULL, 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'COMA', ',', NULL, 1);
 
 -- Construcción de la CLAVE ("STRING")
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'STR_CIERRE', 'STRING', 'COMILLA', 2);     
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'CLAVE', 'COMILLA', 'STR_CIERRE', 2);       
 
 -- Tipos de datos asignados a VALOR
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'VALOR', 'digito', '', 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'VALOR', 'digito', NULL, 1);
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'VALOR', 'digito', 'NUM', 2); -- Permite que números largos sean VALOR
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'VALOR', 'COMILLA', 'STR_CIERRE', 2);      -- Un String con comillas es un VALOR
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'VALOR', 'S1', 'S2', 2);                   
@@ -56,10 +56,10 @@ INSERT INTO GLC_en_FNC VALUES (FALSE, 'CONTENIDO', 'CLAVE_VALOR', 'COMA_CONTENID
 
 -- Estructuras Primitivas Lineales (Evita la ambigüedad infinita en el ciclo del CYK)
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'NUM', 'digito', 'NUM', 2);
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'NUM', 'digito', '', 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'NUM', 'digito', NULL, 1);
 
 INSERT INTO GLC_en_FNC VALUES (FALSE, 'STRING', 'letra', 'STRING', 2);
-INSERT INTO GLC_en_FNC VALUES (FALSE, 'STRING', 'letra', '', 1);
+INSERT INTO GLC_en_FNC VALUES (FALSE, 'STRING', 'letra', NULL, 1);
 
 -- Generación Masiva de terminales para la Fila 1
 INSERT INTO GLC_en_FNC (start, parte_izq, parte_der1, parte_der2, tipo_produccion)
